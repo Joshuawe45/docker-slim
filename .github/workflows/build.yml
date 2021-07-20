@@ -1,0 +1,17 @@
+name: 'build'
+
+on:
+  push:
+
+jobs:
+  build:
+    name: 'Build'
+    runs-on: ubuntu-latest
+    steps:
+     - name : Docker slim 
+       run : |
+         docker pull we45/vul_flask
+         wget -q https://downloads.dockerslim.com/releases/1.33.0/dist_linux.tar.gz && tar -xvzf dist_linux.tar.gz && chmod +x dist_linux/* 
+         sudo mv dist_linux/* /usr/local/bin/
+         docker-slim build --target we45/vul_flask --tag we45/vul_flask:slim
+         docker images
